@@ -1,5 +1,5 @@
 import numpy as np
-import edamame.io_support as io
+import support.io_support as io
 
 path = '../data/train_1.csv'
 
