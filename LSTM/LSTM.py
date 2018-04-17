@@ -1,129 +1,103 @@
-from pandas import DataFrame
-from pandas import Series
-from pandas import concat
-from pandas import read_csv
-from pandas import datetime
+import pandas as pd
 from sklearn.metrics import mean_squared_error
-from sklearn.preprocessing import MinMaxScaler
 from keras.models import Sequential
-from keras.layers import Dense
-from keras.layers import LSTM
+from keras.layers import LSTM, Activation, Dropout, Dense
+import time
 from math import sqrt
 from matplotlib import pyplot
-import numpy
+import numpy as np
+from sklearn.utils import shuffle
 
-# frame a sequence as a supervised learning problem
-def timeseries_to_supervised(data, lag=1):
-    df = DataFrame(data)
-    columns = [df.shift(i) for i in range(1, lag+1)]
-    columns.append(df)
-    df = concat(columns, axis=1)
-    df.fillna(0, inplace=True)
-    return df
+import LSTM.prepare_data as predat
 
-# create a differenced series
-def difference(dataset, interval=1):
-    diff = list()
-    for i in range(interval, len(dataset)):
-        value = dataset[i] - dataset[i - interval]
-        diff.append(value)
-    return Series(diff)
-
-# invert differenced value
-def inverse_difference(history, yhat, interval=1):
-    return yhat + history[-interval]
-
-# scale train and test data to [-1, 1]
-def scale(train, test):
-    # fit scaler
-    scaler = MinMaxScaler(feature_range=(-1, 1))
-    scaler = scaler.fit(train)
-    # transform train
-    train = train.reshape(train.shape[0], train.shape[1])
-    train_scaled = scaler.transform(train)
-    # transform test
-    test = test.reshape(test.shape[0], test.shape[1])
-    test_scaled = scaler.transform(test)
-    return scaler, train_scaled, test_scaled
-
-# inverse scaling for a forecasted value
-def invert_scale(scaler, X, value):
-    new_row = [x for x in X] + [value]
-    array = numpy.array(new_row)
-    array = array.reshape(1, len(array))
-    inverted = scaler.inverse_transform(array)
-    return inverted[0, -1]
-
-# fit an LSTM network to training data
-def fit_lstm(train, batch_size, nb_epoch, neurons):
-    X, y = train[:, 0:-1], train[:, -1]
-    print(np.shape(X))
-    X = X.reshape(X.shape[0], 1, X.shape[1])
-    #     print(X)
-    model = Sequential()
-    model.add(LSTM(neurons, batch_input_shape=(batch_size, X.shape[1], X.shape[2]), stateful=True))
-    model.add(Dense(1))
-    #     model.compile(loss='mean_squared_error', optimizer='adam')
-    model.compile(loss='mean_squared_error', optimizer='sgd')
-    
-    model.summary()
-    
-    for i in range(nb_epoch):
-        hist = model.fit(X, y, epochs=1, batch_size=batch_size, verbose=0, shuffle=False)
-        print(hist.history)
-        model.evaluate(x=X, y=y, batch_size=batch_size)
-        model.reset_states()
-    return model
-
-def forecast_lstm(model, batch_size, X):
-    #     print(np.shape(X))
-    X = X.reshape(len(X),1, 1)
-    #     print(X.shape)
-    yhat = model.predict(X, batch_size=batch_size)
-    return yhat[0,0]
 
 # load dataset
-series = read_csv('../data/train_1.csv', header=0, parse_dates=[0], index_col=0, squeeze=True)
+series = pd.read_csv('../data/train_1.csv', header=0, parse_dates=[0], index_col=0, squeeze=True)
 series = series.iloc[0]
-
+print("original series ",series.shape)
 # transform data to be stationary
 raw_values = series.values
-diff_values = difference(raw_values, 1)
+diff_values = predat.difference(raw_values, 1)
 
 # transform data to be supervised learning
-supervised = timeseries_to_supervised(diff_values, 1)
+supervised = predat.timeseries_to_supervised(diff_values, 1)
 supervised_values = supervised.values
 
 # split data into train and test-sets
-train, test = supervised_values[0:-12], supervised_values[-12:]
+nrow = round(0.8*supervised_values.shape[0])
+print("supervised_values ",supervised_values.shape)
+
+train = supervised_values[:nrow, :]
+test = supervised_values[nrow-1:-1,:]
+print("train ",train.shape)
+print("test ",test.shape)
+
+#train, test = supervised_values[0:-12], supervised_values[-12:]
 
 # transform the scale of the data
-scaler, train_scaled, test_scaled = scale(train, test)
+scaler, train_scaled, test_scaled = predat.scale(train, test)
+print(np.shape(train_scaled),np.shape(test_scaled))
 
-# fit the model
-lstm_model_3 = fit_lstm(train_scaled, 3, 1000, 4)
+train = pd.DataFrame(train_scaled)
+test = pd.DataFrame(test_scaled)
 
-# forecast the entire training dataset to build up state for forecasting
-train_reshaped = train_scaled[:, 0].reshape(len(train_scaled), 1, 1)
-lstm_model_3.predict(train_reshaped, batch_size=3)
+train = shuffle(train)
+train_X = train.iloc[:,:-1]
+train_y = train.iloc[:,-1]
+test_X = test.iloc[:,:-1]
+test_y = test.iloc[:,-1]
 
+train_X = train_X.values
+train_y = train_y.values
+test_X = test_X.values
+test_y = test_y.values
+
+train_X = train_X.reshape(train_X.shape[0],train_X.shape[1],1)
+test_X = test_X.reshape(test_X.shape[0],test_X.shape[1],1)
+
+
+print("train_X_pre",train_X.shape)
+print("train_y_pre",train_y.shape)
+print("test_X_pre",test_X.shape)
+print("test_y_pre",test_y.shape)
+
+model = Sequential()
+model.add(LSTM(input_shape = (1,1), output_dim= 50, return_sequences = True))
+model.add(Dropout(0.5))
+model.add(LSTM(256))
+model.add(Dropout(0.5))
+model.add(Dense(1))
+model.add(Activation("linear"))
+model.compile(loss="mse", optimizer="sgd")
+model.summary()
+
+start = time.time()
+model.fit(train_X,train_y,batch_size=10,nb_epoch=10,validation_split=0.1)
+print("> Compilation Time : ", time.time() - start)
+
+# Doing a prediction on all the test data at once
+prediction = model.predict(test_X)
+print("preds ",prediction.shape)
+print("test_y ",test_y.shape)
+test_y = test_y.reshape(test_y.shape[0],1)
+print(prediction)
 Xt, yt = test_scaled[:, 0], test_scaled[:, 1]
-test_reshaped = Xt.reshape(len(Xt), 1, 1)
-prediction = lstm_model_3.predict(test_reshaped, batch_size=3)
-# print(prediction)
+
 collection = []
 for i in range(len(Xt)):
     X = [Xt[i]]
     yhat = prediction[i]
-    yhat = invert_scale(scaler, X, yhat)
-    yhat = inverse_difference(raw_values, yhat, len(test_scaled)+1-i)
+    yhat = predat.invert_scale(scaler, X, yhat)
+    yhat = predat.inverse_difference(raw_values, yhat, len(test_scaled)+1-i)
     collection.append(yhat)
     expected = raw_values[len(train) + i + 1]
     print('Month=%d, Predicted=%f, Expected=%f' % (i+1, yhat, expected))
-rmse = sqrt(mean_squared_error(raw_values[-12:], collection))
+print(np.shape(collection))
+print(np.shape(raw_values[nrow:]))
+rmse = sqrt(mean_squared_error(raw_values[nrow:-1], collection))
 print('Test RMSE: %.3f' % rmse)
 # line plot of observed vs predicted
-pyplot.plot(raw_values[-12:])
+pyplot.plot(raw_values[nrow:-1])
 pyplot.plot(collection)
 pyplot.show()
 
