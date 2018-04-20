@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 
-def SMAPE(y_true, y_pred):
+def smape(y_true, y_pred):
     """
     Calculates the smape score for evaluating the forecast values
     :type y_true: np.array
@@ -15,7 +15,7 @@ def SMAPE(y_true, y_pred):
     score = np.nanmean(diff)
     return score
 
-def evaluate_SMAPE(y_true, y_pred):
+def evaluate_smape(y_true, y_pred):
     """
     Evaluates forecast values via graphs
     Generates residuals
@@ -26,12 +26,13 @@ def evaluate_SMAPE(y_true, y_pred):
     x = np.linspace(0,10,1000)
     res = [smape(y_true, i * y_pred) for i in x]
     plt.plot(x, res)
+    plt.show()
     print('SMAPE min:%0.2f' % np.min(res), ' at %0.2f' % x[np.argmin(res)])
     print('SMAPE is :%0.2f' % smape(y_true, y_pred*np.nanmedian(y_true)),
           ' at median %0.2f' % np.nanmedian(y_true))
     return res
 
-def RMSE(y_true, y_pred):
+def rmse(y_true, y_pred):
     """
     Calculates the RMSE value for forecast Values
     :type y_true: np.array
