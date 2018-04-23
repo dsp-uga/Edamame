@@ -16,9 +16,17 @@ class ITSM:
     def aacvf(self, a, h):
         """
         Computes autocovariance vector for an ARMA model
-        :type a: dictionary, dictionary of phi, theta, sigma2
-        :type h: int, maximum lag
-        :rtype gamma: np.array, to accomodate lag 0 at index 0
+
+            Args:
+                a: dictionary of phi, theta, sigma2
+                   type: dictionary
+                h: maximum lag
+                   type: int
+
+            Return:
+                gamma: to accomodate lag 0 at index 0
+                       type: np.array
+
         """
         phi = a['phi']
         theta = a['theta']
@@ -49,9 +57,17 @@ class ITSM:
     def trend(self, x, p):
         """
         Calculates the trend component of data
-        :type x: np.array, time series data
-        :type p: int, polynomial order (1=linear, 2=quadratic)
-        :rtype xhat: np.array, trend component
+
+            Args:
+                x: time series data
+                   type: np.array
+                p: polynomial order (1=linear, 2=quadratic)
+                   type: int
+
+            Return:
+                xhat: trend component
+                      type: np.array
+
         """
         n = len(x)
         X = np.array([])
@@ -67,9 +83,17 @@ class ITSM:
     def smooth_ma(self, x, q):
         """
         Smooth data with a moving average filter
-        :type x: np.array, time series data
-        :type q: int, window size=2q+1
-        :rtype m: np.array, x with MA filter
+
+            Args:
+                x: time series data
+                   type: np.array
+                q: window size=2q+1
+                   type: int
+
+            Return:
+                m: x with MA filter
+                   type: np.array
+
         """
         n = len(x)
         x = np.concatenate((np.repeat(x[0],int(q)),x,np.repeat(x[n-1],int(q))))
@@ -82,9 +106,17 @@ class ITSM:
     def season(self, x, d):
         """
         Calculates the seasonal component of data
-        :type x: np.array, time series data
-        :type d: int, number of observation per season
-        :rtype s: np.array, seasonal components
+
+            Args:
+                x: time series data
+                   type: np.array
+                d: number of observation per season
+                   type: int
+
+            Return:
+                s: seasonal components
+                   type: np.array
+
         """
         n = len(x)
         q = np.floor(d/2)
@@ -106,10 +138,17 @@ class ITSM:
     def ma_inf(self, a, n=50):
         """
         Moving Average model with infinite order
-        :type a: dictionary, ARMA model coefficients phi and theta
-        :type n: int, required order of psi
-        :rtype psi_new: np.array,
-            coefficient vector of length n+1 to accomodate psi_0 at index 0
+
+            Args:
+                a: ARMA model coefficients phi and theta
+                   type: dictionary
+                n: required order of psi
+                   type: int
+
+            Return:
+                psi_new: coefficient vector of length n+1 to accomodate psi_0 at index 0
+                         type: np.array
+
         """
         if n==0:
             return 1
@@ -125,16 +164,25 @@ class ITSM:
     def arma(self, x, p=0, q=0):
         """
         Estimates ARMA model parameters using maximum likelihood
-        :type x: np.array, time series data
-        :type p: int, AR order
-        :type q: int, MA order
-        :rtype a: dictionary,
-            - phi: AR coefficients
-            - theta: MA coefficients
-            - sigma2: white noise variance
-            - aicc: Akaike information criterion corrected
-            - se_phi: standard errors for phi
-            - se_theta: standard errors for theta
+
+            Args:
+                x: time series data
+                   type: np.array
+                p: AR order
+                   type: int
+                q: MA order
+                   type: int
+
+            Return:
+                a: dictionary of the model
+                   type: int
+                    - phi: AR coefficients,
+                    - theta: MA coefficients
+                    - sigma2: white noise variance
+                    - aicc: Akaike information criterion corrected
+                    - se_phi: standard errors for phi
+                    - se_theta: standard errors for theta
+
         """
         x = x - x.mean()
         with warnings.catch_warnings():
@@ -165,16 +213,25 @@ class ITSM:
     def autofit(self, x, p=6, q=6):
         """
         Fits the best ARMA model
-        :type x: np.array, time series data
-        :type p: int, AR highest order
-        :type q: int, MA highest order
-        :rtype a: dictionary
-            - phi: AR coefficients
-            - theta: MA coefficients
-            - sigma2: white noise variance
-            - aicc: Akaike information criterion corrected
-            - se_phi: standard errors for phi
-            - se_theta: standard errors for theta
+
+            Args:
+                x: time series data
+                   type: np.array
+                p: AR highest order
+                   type: int
+                q: MA highest order
+                   type: int
+
+            Return:
+                a: dictionary of the model
+                   type: int
+                    - phi: AR coefficients,
+                    - theta: MA coefficients
+                    - sigma2: white noise variance
+                    - aicc: Akaike information criterion corrected
+                    - se_phi: standard errors for phi
+                    - se_theta: standard errors for theta
+
         """
         a = {'aicc': float('Inf')}
         pp = range(6)
@@ -192,17 +249,29 @@ class ITSM:
     def forecast(self, x, M, a, h=10, opt=2, alpha=0.5):
         """
         Forecasts future values of a time series
-        :type x: np.array, time series data
-        :type M: list, data model ([] for None)
-        :type a: dictionary, ARMA model coefficients (phi, theta, sigma2)
-        :type h: int, number of predicted values
-        :type opt: display option
-        :type alpha: float, significance level (default=0.05)
-        :rtype f: dictionary,
-            - pred: predicted values
-            - se: standard errors (not included if log function in M)
-            - l: lower 95% prediction bound
-            - u: upper 95% prediction bound
+
+            Args:
+                x: time series data
+                   type: np.array
+                M: data model ([] for None)
+                   type: list
+                a: ARMA model coefficients (phi, theta, sigma2)
+                   type: dictionary
+                h: number of predicted values
+                   type: int
+                opt: display option
+                     type: boolean
+                alpha: significance level (default=0.05)
+                       type: float
+
+            Return:
+                f: predictions and their upper and lower bound
+                   type: dictionary
+                        - pred: predicted values
+                        - se: standard errors (not included if log function in M)
+                        - l: lower 95% prediction bound
+                        - u: upper 95% prediction bound
+
         """
         f = self.forecast_transform(x, M, a, h, 1)
         # compute standard erros
@@ -328,10 +397,19 @@ class ITSM:
     def Resid(self, x, M=[], a=[]):
         """
         Generates model residuals
-        :type x: np.array, time series data
-        :type M: list, data model ([] for None)
-        :type a: dictionary, ARMA model coefficients (phi, theta, sigma2)
-        :rtype y: np.array, residuals
+
+            Args:
+                x: time series data
+                   type: np.array
+                M: data model ([] for None)
+                   type: list
+                a: ARMA model coefficients (phi, theta, sigma2)
+                   type: dictionary
+
+            Return:
+                y: residuals
+                   type: np.array
+
         """
         y = x
         k = 1
@@ -361,9 +439,17 @@ class ITSM:
     def innovations(self, x, a):
         """
         innovations for an ARMA model
-        :type x: np.array, time series data
-        :type a: dictionary, ARMA model coefficients (phi, theta, sigma2)
-        :rtype x-xhat: np.array
+
+            Args:
+                x: time series data
+                   type: np.array
+                a: ARMA model coefficients (phi, theta, sigma2)
+                   type: dictionary
+
+            Return:
+                x-xhat: residuals of x and xhat
+                        type: np.array
+
         """
         xhat = self.innovation_kernel(x,a)['xhat']
         return x-xhat
@@ -371,11 +457,19 @@ class ITSM:
     def innovation_kernel(self, x, a):
         """
         Calculates xhat and v per ITSF
-        :type x: np.array, time series data
-        :type a: dictionary, ARMA model coefficients (phi, theta, sigma2)
-        :rtype dd: dictionary,
-            - xhat: np.array, estimate of data
-            - v: mean square error
+
+            Args:
+                x: time series data
+                   type: np.array
+                a: ARMA model coefficients (phi, theta, sigma2)
+                   type: dictionary
+
+            Return:
+                dd: dictionary of xhat and v
+                    type: dictionary
+                        - xhat: np.array, estimate of data
+                        - v: mean square error
+
         """
         #compute autocovariance kappa(i,j)
         #optimized for i>=j and j>0
@@ -426,9 +520,17 @@ class ITSM:
     def innovation_update(self, x, a):
         """
         Updates AICC and WN variance of an ARMA model
-        :type x: np.array, time series data
-        :type a: dictionary, ARMA model coefficients (phi, theta, sigma2)
-        :rtype a: dictionary, updated ARMA model coefficients (phi, theta, sigma2)
+
+            Args:
+                x: time series data
+                   type: np.array
+                a: ARMA model coefficients (phi, theta, sigma2)
+                   type: dictionary
+
+            Return:
+                a: updated ARMA model coefficients (phi, theta, sigma2)
+                   type: dictionary
+
         """
         a['sigma2'] = 1
         I = self.innovation_kernel(x,a)

@@ -14,9 +14,17 @@ from .itsmpy import ITSM
 def fit_arima_model(series, M):
     """
     Fits best arima model by lowest aicc values
-    :type series: np.arrays, time series data
-    :type M: list, data model ([] for None)
-    :rtype a: dictionary, ARMA model coefficients (phi, theta, sigma2)
+
+        Args:
+            series: time series data
+                    type: np.arrays
+            M: data model ([] for None)
+               type: list
+
+        Returns:
+            a: ARMA model coefficients (phi, theta, sigma2)
+               type: dictionary
+
     """
     itsm = ITSM()
     e = itsm.Resid(series, M)
