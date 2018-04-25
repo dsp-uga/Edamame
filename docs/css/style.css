@@ -50,10 +50,15 @@ p.big-lh {
 }
 
 p.left-m {
-  /* margin-top: 100px; */
-  /* margin-bottom: 100px; */
-  /* margin-right: 150px; */
   margin-left: 200px;
+}
+
+p.left-s {
+  margin-left: 50px;
+}
+
+ul.left-s {
+  margin-left: 100px;
 }
 
 
@@ -117,7 +122,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .heading-section {
-  margin-bottom: 5em;
+  margin-bottom: 3em;
 }
 .heading-section h2 {
   position: relative;
@@ -448,7 +453,7 @@ header #fh5co-main-nav > ul li:first-child {
   color: #000;
 }
 .services-num .desc {
-  padding-left: 140px;
+  padding-left: 130px;
 }
 .services-num .desc h3 {
   font-weight: 300;
