@@ -67,7 +67,9 @@
 	<header>
 		<div class="container text-center">
 			<div class="fh5co-navbar-brand">
-				<a class="fh5co-logo" href="index.html">Edamame</a>
+				<a class="fh5co-logo" href="index.html">
+					<img class="img" src="images/edamamesan.png" height="60" width="60"/>
+					Edamame</a>
 			</div>
 			<nav id="fh5co-main-nav" role="navigation">
 				<ul>
@@ -110,16 +112,20 @@
 				<div class="text-center">
 				<h1><b>Dataset</b><br>Web visits of 145k pages</h1>
 				<hr><br>
-				<p class="small-lh">
+				</div>
+				<!-- <div class="left-m"> -->
+				<p class="big-lh left-s">
 					The dataset is from the Kaggle competition
 					<a href="https://www.kaggle.com/c/web-traffic-time-series-forecasting">
 						Web Traffic Time Series Forecasting</a> from 07/13/17 to 11/15/17. <br>
-						Each row represents a visit series of a page from 07/31/15 <br>
-						to 12/31/16 (for training set 1) and to 09/01/17 (for training set 2). </p>
+						Each row represents a visit series of a page from <b>07/31/15</b>
+						to <b>12/31/16</b> (for training set 1) and to <b>09/01/17</b> (for training set 2). </p>
 				<br>
-				<img class="img" src="images/data_preview.png" height="250" width="900"/><br>
+				<!-- </div> -->
+				<div class="text-center">
+				<img class="img" src="images/intro/data_preview.png" height="250" width="900"/><br>
 				<br>
-			</div>
+				</div>
 				<!-- <p class="small-lh"> -->
 				<p class="big-lh left-m">
 					<b>name_project_access_agent</b><br>
@@ -152,46 +158,47 @@
 					<h1><b>Goal</b><br>Forecast Two Months Web Visits</h1>
 					<hr><br>
 					<h2>Forecast</h2>
-					<p class="small-lh">
-						The goal of this competition is to forecast two months webpage visits. <br>
-						The competition ends on 09/11/17 and the expected forecasting dates are from 09/13/17 to 11/13/17. <br>
-						In this website, in order to better visualize the results, <br>
-						we are mostly using training set 1 in this stage. <br>
-						(Which means using the dataset from 07/31/15 to 12/31/16 to forecast the visits from 01/01/17 to 03/01/17.) <br>
-						After several try, we will move on to training set 2.
+				</div>
+					<p class="big-lh left-s">
+						The competition aims to forecast two months visits of 145k pages in Wikipedia.
+						The competition ends on <b>09/11/17</b> and the expected forecasting dates are from <b>09/13/17</b> to <b>11/13/17</b>. <br>
+						In this website, in order to better visualize the results, we are mostly using training set 1 in this stage
+						and compare the true visits data in training set 2.
+						(That is to say, we are using the dataset from <b>07/31/15</b> to <b>12/31/16</b> to forecast the visits from <b>01/01/17</b> to <b>03/01/17</b>.)
+						After several try, we will move on to training set 2 using our finalized model.
 					</p>
 					<br><br>
+				<div class="heading-section text-center">
 					<h2>Models</h2>
 				</div>
 				<div class="col-md-10 col-md-offset-1">
-					<div class="col-md-6 col-sm-6 services-num services-num-text-right">
+					<div class="col-md-6 col-sm-6 services-num">
 						<span class="number-holder">01</span>
 							<div class="desc">
 								<h2><b>ARIMA</b> <br>(Autoregressive Integrated Moving Average)</h2>
-								<p>Traditional statistical model to well-forecast the time series data.<br>
-									 However, the many assumptions behind the model might be challenging.</p>
+								<p>Common statistical model to well-forecast the time series data.<br>
+									 Many assumptions behind the model might be challenging.</p>
 							</div>
 					</div>
 					<div class="col-md-6 col-sm-6 services-num">
 						<span class="number-holder">02</span>
 							<div class="desc">
 								<h2><b>LSTM</b> <br>(Long short-term memory)</h2>
-								<p>Deep Learning method, based on RNN,
-									 i have no idea how to express why we want to use this you have to fill in yourself ;DDD</p>
+								<p>Common Deep Learning method used on time series data.
+									 Based on RNN, but fix the problem of long-term dependency. </p>
 							</div>
 					</div>
 				</div>
 			</div>
 			<br>
 			<div class="row">
-				<div class="text-center">
-					<p class="small-lh">
-						Each model are discussed in their own sections, we will go deeper to show how they work. <br><br>
-						In the header navigation bar, we are providing the short-cut to each page, <br>
-						but you are still able to follow the flow of each section, <br>
-						which will run the whole experiment for you!
+					<p class="big-lh left-s">
+						Each model are discussed in their own sections, we will go deeper to show how they work. <br>
+						Go ahead to explore each page for different models in the navigation bar, or follow the bottons
+						under each section for full story!
 					</p>
 					<br>
+				<div class="text-center">
 					<a href="#evaluation" class="btn btn-primary page-scroll"><b>Evaluation!</b></a>
 					<br><br><br><br>
 				</div>
@@ -206,262 +213,50 @@
 				<div class="heading-section text-center">
 					<h1><b>Evaluation</b><br>Symmetric Mean Absolute Percent Error</h1>
 					<hr><br>
+					<h2>What is MAPE?</h2>
+				</div>
+					<p class="big-lh left-s">
+						<b>Mean Absolute percent Error (MAPE)</b> is a measure of prediction accuracy of a forecasting method
+						using the difference between ture value and predicted value divided by the actual value, then
+						taking the absolute value, summing them up, and divided by the number of the amount of the values.</p>
+					<div class="text-center">
+						<img class="img" src="images/intro/mape.png" width="250"/ align="middle">
+					</div><br>
+					<p class="big-lh left-s">
+						where A is the actual value and F is the forecast value.
+						However, MAPE is simple and convincing but it cannot be used if there are zero values because there would be a division by zero,
+						and that's why this competition is asking for the SMAPE value.
+					</p>
+					<br><br>
+				<div class="heading-section text-center">
 					<h2>What is SMAPE?</h2>
-
-
-	<div id="evaluation">
-		<div class="container">
-			<div class="heading-section text-center">
-				<h2>江郎才盡</h2>
+				</div>
+					<p class="big-lh left-s">
+						<b>Symmetric Mean Absolute Percent Error (SMAPE)</b> is an alternative method to MAPE
+						when there are zero or near-zero demand for items.
+						Since the low volume items have infinitely high error rates that skew the overall error rate,
+						SMAPE self-limits to an error rate of 200% and reduces the influence of low volume items.
+					</p>
+					<div class="text-center">
+						<img class="img" src="images/intro/smape.png" width="320"/ align="middle">
+					</div><br><br><br>
+				<div class="heading-section text-center">
+					<h2>Baseline</h2>
+				</div>
+					<p class="big-lh left-s">
+						According to the <a href="https://www.kaggle.com/c/web-traffic-time-series-forecasting/leaderboard">
+							leaderboard</a> on Kaggle, the mean SMAPE value between 35.48065 and 40.33832 are ranked within top 20%,
+							and value lower than 41.94324 are ranked within top 50% in this competition.
+							Our results will be considered based on this leaderboard.
+					</p><br>
 			</div>
-			<div class="row">
-
+			<div class="text-center">
+			<a href="arima.html" class="btn btn-primary page-scroll"><b>Start Modeling!</b></a>
+			<br><br><br><hr>
 			</div>
 		</div>
 	</div><!-- end fh5co-common-section -->
-	<div class="fh5co-parallax" style="background-image: url(images/hero-1.jpg);" data-stellar-background-ratio="0.5">
-		<div class="overlay"></div>
-		<div class="container">
-			<div class="row">
-				<div class="col-md-8 col-md-offset-2 col-sm-12 col-sm-offset-0 col-xs-12 col-xs-offset-0 text-center fh5co-table">
-					<div class="fh5co-intro fh5co-table-cell">
-						<h1 class="text-center">Create more Themes</h1>
-						<p>Made with love by the fine folks at <a href="http://freehtml5.co">FreeHTML5.co</a></p>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div><!-- end: fh5co-parallax -->
-	<div id="fh5co-services-section">
-		<div class="container">
-			<div class="heading-section text-center">
-				<h2>Our Services</h2>
-			</div>
-			<div class="row">
-				<div class="col-md-4 col-sm-6">
-					<div class="fh5co-services-right">
-						<div class="fh5co-table2 text-center">
-							<div class="fh5co-table-cell2">
-								<i class="icon-heart3"></i>
-							</div>
-						</div>
-						<div class="holder-section">
-							<h3>Crafted With Love</h3>
-							<p>Far far away, behind the word mountains, far from the countries Vokalia </p>
-						</div>
-					</div>
-					<div class="fh5co-services-right">
-						<div class="fh5co-table2 fh5co-table2-color-2 text-center">
-							<div class="fh5co-table-cell2">
-								<i class="icon-laptop"></i>
-							</div>
-						</div>
-						<div class="holder-section">
-							<h3>Web Design</h3>
-							<p>Far far away, behind the word mountains, far from the countries Vokalia </p>
-						</div>
-					</div>
-					<div class="fh5co-services-right">
-						<div class="fh5co-table2 fh5co-table2-color-3 text-center">
-							<div class="fh5co-table-cell2">
-								<i class="icon-video"></i>
-							</div>
-						</div>
-						<div class="holder-section">
-							<h3>Video Editing</h3>
-							<p>Far far away, behind the word mountains, far from the countries Vokalia </p>
-						</div>
-					</div>
-				</div>
 
-				<div class="col-md-4 text-center">
-					<div class="fhco-hero2">
-						<img class="img-responsive" src="images/iphone6.png" alt="iphone6">
-					</div>
-				</div>
-				<div class="col-md-4 col-sm-6">
-					<div class="fh5co-services">
-						<div class="fh5co-table2 fh5co-table2-color-4 text-center">
-							<div class="fh5co-table-cell2">
-								<i class="icon-mobile"></i>
-							</div>
-						</div>
-						<div class="holder-section">
-							<h3>Mobile Optimization</h3>
-							<p>Far far away, behind the word mountains, far from the countries Vokalia </p>
-						</div>
-					</div>
-					<div class="fh5co-services">
-						<div class="fh5co-table2 fh5co-table2-color-5 text-center">
-							<div class="fh5co-table-cell2">
-								<i class="icon-gears"></i>
-							</div>
-						</div>
-						<div class="holder-section">
-							<h3>SEO</h3>
-							<p>Far far away, behind the word mountains, far from the countries Vokalia </p>
-						</div>
-					</div>
-					<div class="fh5co-services">
-						<div class="fh5co-table2 fh5co-table2-color-6 text-center">
-							<div class="fh5co-table-cell2">
-								<i class="icon-piechart"></i>
-							</div>
-						</div>
-						<div class="holder-section">
-							<h3>Web Analytic</h3>
-							<p>Far far away, behind the word mountains, far from the countries Vokalia </p>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div><!-- end: fh5co-services-section -->
-	<div id="fh5co-featured-work-section">
-		<div class="container-fluid">
-			<div class="heading-section text-center">
-				<h2>Our Projects</h2>
-			</div>
-			<div class="owl-carousel owl-carousel2">
-				<div class="item">
-					<!-- <a href="#" class="image-popup"> -->
-					<img src="images/portfolio_pic1.jpg" alt="image">
-					<a href="#" class="pop-up-overlay text-center">
-						<div class="desc">
-							<h3>Camera</h3>
-							<span>Video</span>
-						</div>
-					</a>
-				</div>
-				<div class="item">
-					<img src="images/portfolio_pic2.jpg" alt="image">
-					<a href="#" class="pop-up-overlay pop-up-overlay-color-2 text-center">
-						<div class="desc">
-							<h3>Workstation</h3>
-							<span>Illustration</span>
-						</div>
-					</a>
-				</div>
-				<div class="item">
-					<!-- <a href="#" class="image-popup"> -->
-					<img src="images/portfolio_pic3.jpg" alt="image">
-					<!-- </a> -->
-					<a href="#" class="pop-up-overlay pop-up-overlay-color-3 text-center">
-						<div class="desc">
-							<h3>Mobile Phone</h3>
-							<span>Web</span>
-						</div>
-					</a>
-				</div>
-				<div class="item">
-					<!-- <a href="#" class="image-popup"> -->
-					<img src="images/portfolio_pic4.jpg" alt="image">
-					<!-- </a> -->
-					<a href="#" class="pop-up-overlay pop-up-overlay-color-4 text-center">
-						<div class="desc">
-							<h3>Camera Lens</h3>
-							<span>Illustration</span>
-						</div>
-					</a>
-				</div>
-				<div class="item">
-					<!-- <a href="#" class="image-popup"> -->
-					<img src="images/portfolio_pic5.jpg" alt="image">
-					<!-- </a> -->
-					<a href="#" class="pop-up-overlay text-center">
-						<div class="desc">
-							<h3>Card</h3>
-							<span>Card</span>
-						</div>
-					</a>
-				</div>
-				<div class="item">
-					<!-- <a href="#" class="image-popup"> -->
-					<img src="images/portfolio_pic6.jpg" alt="image">
-					<!-- </a> -->
-					<a href="#" class="pop-up-overlay pop-up-overlay-color-2 text-center">
-						<div class="desc">
-							<h3>Shoes</h3>
-							<span>Brand</span>
-						</div>
-					</a>
-				</div>
-				<div class="item">
-					<!-- <a href="#" class="image-popup"> -->
-					<img src="images/portfolio_pic7.jpg" alt="image">
-					<!-- </a> -->
-					<a href="#" class="pop-up-overlay text-center">
-						<div class="desc">
-							<h3>Magazine</h3>
-							<span>Web</span>
-						</div>
-					</a>
-				</div>
-				<div class="item">
-					<!-- <a href="#" class="image-popup"> -->
-					<img src="images/portfolio_pic8.jpg" alt="image">
-					<!-- </a> -->
-					<a href="#" class="pop-up-overlay pop-up-overlay-color-3 text-center">
-						<div class="desc">
-							<h3>VCard</h3>
-							<span>Card</span>
-						</div>
-					</a>
-				</div>
-				<div class="item">
-					<!-- <a href="#" class="image-popup"> -->
-					<img src="images/portfolio_pic9.jpg" alt="image">
-					<!-- </a> -->
-					<a href="#" class="pop-up-overlay pop-up-overlay-color-4 text-center">
-						<div class="desc">
-							<h3>Paper</h3>
-							<span>Illustration</span>
-						</div>
-					</a>
-				</div>
-			</div>
-		</div>
-	</div><!-- end fh5co-featured-work-section -->
-	<div id="fh5co-blog-section">
-		<div class="container">
-			<div class="heading-section text-center">
-				<h2>Recent Blog</h2>
-			</div>
-			<div class="row">
-				<div class="col-md-4 blog-section">
-					<span>03 <small>July 2016</small></span>
-					<h3><a href="#">Mourntains countries Vokalia</a></h3>
-					<p>Far far away, behind the word mountains, far from the countries Vokalia, there live the blind texts.</p>
-					<a class="btn btn-primary" href="#">Read More</a>
-				</div>
-				<div class="col-md-4 blog-section">
-					<span>02 <small>July 2016</small></span>
-					<h3><a href="#">Mourntains countries Vokalia</a></h3>
-					<p>Far far away, behind the word mountains, far from the countries Vokalia, there live the blind texts.</p>
-					<a class="btn btn-primary" href="#">Read More</a>
-				</div>
-				<div class="col-md-4 blog-section">
-					<span>01 <small>July 2016</small></span>
-					<h3><a href="#">Mourntains countries Vokalia</a></h3>
-					<p>Far far away, behind the word mountains, far from the countries Vokalia, there live the blind texts.</p>
-					<a class="btn btn-primary" href="#">Read More</a>
-				</div>
-			</div>
-		</div>
-	</div><!-- end: fh5co-blog-section -->
-	<div class="fh5co-parallax" style="background-image: url(images/hero-2.jpg);" data-stellar-background-ratio="0.5">
-		<div class="overlay"></div>
-		<div class="container">
-			<div class="row">
-				<div class="col-md-8 col-md-offset-2 col-sm-12 col-sm-offset-0 col-xs-12 col-xs-offset-0 text-center fh5co-table">
-					<div class="fh5co-intro fh5co-table-cell">
-						<h1 class="text-center">Less is more</h1>
-						<p>Made with love by the fine folks at <a href="http://freehtml5.co">FreeHTML5.co</a></p>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div><!-- end: fh5co-parallax -->
 	<footer>
 		<div id="footer" class="fh5co-border-line">
 			<div class="container">
