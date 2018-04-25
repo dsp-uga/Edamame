@@ -24,4 +24,3 @@ def load_data(path):
     visits = raw_data.drop('Page',axis=1).values
     
     return pages, dates, visits
-

@@ -99,12 +99,3 @@ def split_data(train, test, pred_days=60):
     test_y = test_y.reshape(series,1,pred_step)
 
     return train_X, train_y, test_X, test_y
-
-
-
-
-
-
-
-
-
