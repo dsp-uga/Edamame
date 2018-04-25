@@ -40,7 +40,7 @@
 	<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 	<link rel="shortcut icon" href="images/car.ico">
 
-<!--    <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,700' rel='stylesheet' type='text/css'>-->
+	<link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,700' rel='stylesheet' type='text/css'>
 
 	<!-- Animate.css -->
 	<link rel="stylesheet" href="css/animate.css">
@@ -156,11 +156,11 @@
 					ARIMA is a generalized ARMA. The part "Integrated" means the differencing step, which can eliminate the non-stationarity
 					and fit ARMA model then.
 				</p>
-				<p class="big-lh left-m">
-					&#9679; <b>AR</b> - evolving variable of interest is regressed on its prior values <br>
-					&#9679; <b>MA</b> - regression error is linear combination of error terms whose values
+				<p class="big-lh left-s">
+					&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &#9679; <b>AR</b> - evolving variable of interest is regressed on its prior values <br>
+					&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &#9679; <b>MA</b> - regression error is linear combination of error terms whose values
 					occurred contemporaneously<br>
-				  &#9679; <b>I</b> - Integratd, data values have been replaced with the difference between their values and the previous values <br>
+				  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &#9679; <b>I</b> - Integratd, data values have been replaced with the difference between their values and the previous values <br>
 				</p><br>
 				<div class="row">
 					<div class="text-center">
@@ -181,11 +181,9 @@
 					<hr><br>
 					<h2>Seasonal and Trend Components</h2>
 				</div>
-					<p class="big-lh left-s">
-						<div class="text-center">
-							<img class="img" src="images/arima/assump_check.png" width="1300"/ align="middle">
-						</div><br>
-					</p>
+					<div class="text-center">
+						<img class="img" src="images/arima/assump_check.png" width="1200"/ align="middle">
+					</div><br>
 					<br><br>
 				<div class="heading-section text-center">
 					<h2>Stationarity check</h2>
@@ -203,7 +201,7 @@
 		</div>
 	</div>
 
-	<!-- Step 3: Fit the model -->
+	<!-- Step 3: Model and Forecast -->
 	<div id="step3">
 		<div class="container">
 			<div class="row">
@@ -216,16 +214,14 @@
 						Since the series is stationary, we have tried 0 to 5 for both p parameter (AR part)
 						and q parameter (MA part), then compared their AICC (Akaike Information Criterion corrected) and
 						selected the model with lowest AICC value. AICC is especially developed for small sample size.
-					</p><br>
+					</p>
 					<br><br>
 				<div class="heading-section text-center">
 					<h2>Forecast</h2>
 				</div>
-					<p class="big-lh left-s">
 						<div class="text-center">
-							<img class="img" src="images/arima/forecast.png" width="1300"/ align="middle">
-						</div>
-					</p><br>
+							<img class="img" src="images/arima/forecast.png" width="1250" align="middle"/>
+						</div><br><br>
 				<div class="text-center">
 					<a href="#step4" class="btn btn-primary page-scroll"><b>Step 4!</b></a>
 					<br><br><br><br>
@@ -234,187 +230,107 @@
 		</div>
 	</div>
 
-
-
-
-
-	<!-- Step 3: Fit the model -->
-	<div id="step3">
-		<div class="container text-center">
-			<h1><b>Step 3</b><br>Fit the model--<h1>
-			<br>
-			<div class="row text-center">
-				<div class="col-md-4">
-					<div class="services-grid">
-						<i class="icon-heart"></i>
-						<h3>Crafted With Love</h3>
-						<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts far from the countries Vokalia and Consonantia.</p>
-					</div>
-				</div>
-				<div class="col-md-4">
-					<div class="services-grid">
-						<i class="icon-laptop"></i>
-						<h3>Web Design</h3>
-						<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts far from the countries Vokalia and Consonantia.</p>
-					</div>
-				</div>
-				<div class="col-md-4">
-					<div class="services-grid">
-						<i class="icon-video"></i>
-						<h3>Video Editing</h3>
-						<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts far from the countries Vokalia and Consonantia.</p>
-					</div>
-				</div>
-				<div class="col-md-4">
-					<div class="services-grid">
-						<i class="icon-mobile"></i>
-						<h3>Mobile Optimization</h3>
-						<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts far from the countries Vokalia and Consonantia.</p>
-					</div>
-				</div>
-				<div class="col-md-4">
-					<div class="services-grid">
-						<i class="icon-gears"></i>
-						<h3>Search Engine Optimization</h3>
-						<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts far from the countries Vokalia and Consonantia.</p>
-					</div>
-				</div>
-				<div class="col-md-4">
-					<div class="services-grid">
-						<i class="icon-piechart"></i>
-						<h3>Web Analytic</h3>
-						<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts far from the countries Vokalia and Consonantia.</p>
-					</div>
-				</div>
-				<a href="#step4" class="btn btn-default page-scroll"><b>Step 4!</b></a>
-				<br><br><br><hr>
-			</div>
-		</div>
-	</div>
-	<!-- Step 4: Model Training -->
+	<!-- Step 4: However -->
 	<div id="step4">
-		<div class="container text-center">
-			<h1><b>Step 4</b><br>Train ARIMA models<h1>
-			<br>
-			<div class="row text-center">
-				<div class="col-md-4">
-					<div class="services-grid">
-						<i class="icon-heart"></i>
-						<h3>Crafted With Love</h3>
-						<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts far from the countries Vokalia and Consonantia.</p>
-					</div>
+		<div class="container">
+			<div class="row">
+				<div class="heading-section text-center">
+					<h1><b>Step 4</b><br>HOWEVER---<h1>
+					<hr><br>
+					<h2>Time Consuming</h2>
 				</div>
-				<div class="col-md-4">
-					<div class="services-grid">
-						<i class="icon-laptop"></i>
-						<h3>Web Design</h3>
-						<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts far from the countries Vokalia and Consonantia.</p>
-					</div>
+					<p class="big-lh left-s">
+						ARIMA (or ARMA) is time consuming. No seriously, it's <b>SUPER SLOW</b>. <br>
+						The whole process of each series--detrending and deseaonizing the series, train the model and forecasting
+						--takes <font color="#F03861"><b>1</b></font> min.
+						It's not crazy if we only have one series to forecast, but if we have <font color="#F03861"><b>145k series</b></font>,
+						we will need: <br>
+						<div class="text-center">
+						(145630 pages)/(60 mins)/(24 hrs) = <font color="#F03861"><b>100 days</b></font>.
+						</div></p>
+					<p class="big-lh left-s">
+						Ugh, even the competition has only 90 days to finish it.
+					</p>
+					<br><br>
+				<div class="heading-section text-center">
+					<h2>Choose subset</h2>
 				</div>
-				<div class="col-md-4">
-					<div class="services-grid">
-						<i class="icon-video"></i>
-						<h3>Video Editing</h3>
-						<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts far from the countries Vokalia and Consonantia.</p>
-					</div>
+					<p class="big-lh left-s">
+						Compared to ARIMA, fitting ARMA is definitely easier if the series is stationary.
+						Also, if the series has high standard deviation, which means it's autocovariance is high
+						and might differs with time, then the series might be more interesting to forecast. <br>
+						Therefore, we select the stationary pages based on their augmented Dickey-Fuller test results and
+						the pages with standard deviation larger than 500. After filtering out, we have a subset including
+						67059 pages.
+					</p>
+					<br><br>
+				<div class="text-center">
+					<a href="#step5" class="btn btn-primary page-scroll"><b>Step 5!</b></a>
+					<br><br><br><br>
 				</div>
-				<div class="col-md-4">
-					<div class="services-grid">
-						<i class="icon-mobile"></i>
-						<h3>Mobile Optimization</h3>
-						<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts far from the countries Vokalia and Consonantia.</p>
-					</div>
-				</div>
-				<div class="col-md-4">
-					<div class="services-grid">
-						<i class="icon-gears"></i>
-						<h3>Search Engine Optimization</h3>
-						<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts far from the countries Vokalia and Consonantia.</p>
-					</div>
-				</div>
-				<div class="col-md-4">
-					<div class="services-grid">
-						<i class="icon-piechart"></i>
-						<h3>Web Analytic</h3>
-						<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts far from the countries Vokalia and Consonantia.</p>
-					</div>
-				</div>
-				<a href="#step5" class="btn btn-default page-scroll"><b>Step 5!</b></a>
-				<br><br><br><hr>
 			</div>
 		</div>
 	</div>
+
 	<!-- Step 5: Results -->
 	<div id="step5">
-		<div class="container text-center">
-			<h1><b>Step 5</b><br>Wait...<h1>
-			<br>
-			<div class="row text-center">
-				<div class="col-md-4">
-					<div class="services-grid">
-						<i class="icon-heart"></i>
-						<h3>Crafted With Love</h3>
-						<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts far from the countries Vokalia and Consonantia.</p>
-					</div>
+		<div class="container">
+			<div class="row">
+				<div class="heading-section text-center">
+					<h1><b>Step 5</b><br>How is the performance?<h1>
+					<hr><br>
+					<h2>It's Awesome!</h2>
 				</div>
-				<div class="col-md-4">
-					<div class="services-grid">
-						<i class="icon-laptop"></i>
-						<h3>Web Design</h3>
-						<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts far from the countries Vokalia and Consonantia.</p>
-					</div>
+					<p class="big-lh left-s">
+						Although some of the series have warning because of non-stationarity
+						(since augmented Dickey-Fuller test is not 100% robust), but most of them perform pretty well!
+						It results in average 39.6649 for 1867 pages.
+						<div class="text-center">
+							<img class="img" src="images/arima/results.png" width="350" align="middle"/>
+						</div></p>
+					<br><br><br>
+				<div class="heading-section text-center">
+					<h2>Distribution</h2>
+							<img class="img" src="images/arima/smape_dist.png" width="800" align="middle"/>
 				</div>
-				<div class="col-md-4">
-					<div class="services-grid">
-						<i class="icon-video"></i>
-						<h3>Video Editing</h3>
-						<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts far from the countries Vokalia and Consonantia.</p>
-					</div>
+					<br><br>
+				<div class="heading-section text-center">
+					<h2>Don't Forget Time Consuming</h2>
 				</div>
-				<div class="col-md-4">
-					<div class="services-grid">
-						<i class="icon-mobile"></i>
-						<h3>Mobile Optimization</h3>
-						<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts far from the countries Vokalia and Consonantia.</p>
-					</div>
+					<p class="big-lh left-s">
+						Even though it performs well on those selected series, it's still time consuming.
+						We now have 67059 pages, and it will still take
+						(67059 pages)/(60 mins)/(24 hrs) = <font color="#F03861"><b>47 days</b></font>. <br>
+						No! Never! Never ever! That's why we are not stopping here, we are trying another model
+						and training all the series at once.
+					</p>
+					<br><br>
+				<div class="text-center">
+					<a href="lstm.html" class="btn btn-primary page-scroll"><b>Try LSTM!</b></a>
+					<br><br><br><br>
 				</div>
-				<div class="col-md-4">
-					<div class="services-grid">
-						<i class="icon-gears"></i>
-						<h3>Search Engine Optimization</h3>
-						<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts far from the countries Vokalia and Consonantia.</p>
-					</div>
-				</div>
-				<div class="col-md-4">
-					<div class="services-grid">
-						<i class="icon-piechart"></i>
-						<h3>Web Analytic</h3>
-						<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts far from the countries Vokalia and Consonantia.</p>
-					</div>
-				</div>
-				<a href="#step6" class="btn btn-default page-scroll"><b>Step 6!</b></a>
-				<br><br><br><hr>
 			</div>
 		</div>
 	</div>
 
 <!-- Footer -->
-	<footer>
-		<div id="footer" class="fh5co-border-line">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-8 col-md-offset-2 text-center">
-						<p>Copyright 2016 Free Html5 <a href="#">Neos</a>. All Rights Reserved. <br>Made with <i class="icon-heart3 love"></i> by <a href="http://freehtml5.co/" target="_blank">Freehtml5.co</a> / Demo Images: <a href="https://www.pexels.com/" target="_blank">Pexels</a> &amp; <a href="http://plmd.me/" target="_blank">PLMD</a> </p>
-						<p class="fh5co-social-icons">
-							<a href="#"><i class="icon-github-with-circle"></i></a>
-							<a href="#"><i class="icon-facebook-with-circle"></i></a>
-							<a href="#"><i class="icon-instagram-with-circle"></i></a>
-						</p>
-					</div>
+<footer>
+	<div id="footer" class="fh5co-border-line">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-8 col-md-offset-2 text-center">
+					<p>Copyright 2016 <a href="http://freehtml5.co/">Free Html5 Neos</a>. All Rights Reserved. <br>
+						 Modified by <a href="https://github.com/WeiwenXu21">Weiwen</a> & <a href="https://github.com/melanieihuei">I-Huei</a> 2018.
+					</p>
+					<p class="fh5co-social-icons">
+						<a href="https://github.com/dsp-uga/Edamame"><i class="icon-github-with-circle"></i></a>
+						<a href="https://dsp-uga.github.io/sp18/"><i class="icon-500px-with-circle"></i></a>
+					</p>
 				</div>
 			</div>
 		</div>
-	</footer>
+	</div>
+</footer>
 
 	<!-- jQuery -->
 	<script src="js/jquery.min.js"></script>
