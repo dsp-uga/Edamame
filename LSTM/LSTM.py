@@ -1,108 +1,107 @@
-import pandas as pd
-import numpy as np
-#from math import sqrt
-#import time
-from sklearn.preprocessing import MinMaxScaler
+import support.data_preprocessing as dpre
+import support.io_support as io
 
 from keras.layers import LSTM, Activation, Dropout, Dense
 from keras.models import Sequential
 
-#from sklearn.utils import shuffle
-#from sklearn.metrics import mean_squared_error
-#from sklearn.preprocessing import MinMaxScaler
+def build_LSTM(units, input_dim, output_dim, dropout=0.5, lstm_layers=0, lstm_neurons=[], dense_layers=0, dense_neurons=[]):
+    '''
+        Build the LSTM model.
+        
+        Args:
+            units:          Number of units in LSTM model
+                            type: INT
+            input_dim:      Input feature dimension
+                            type: INT
+            output_dim:     Output dimension
+                            type: INT
+            dropout:        Dropout number
+                            type: INT, default=0.5
+            lstm_layers:    Number of additional LSTM layers
+                            type: INT, default=0
+            lstm_neurons:   List of neuron numbers in each additional LSTM layer
+                            type: List, default=[]
+            dense_layers:   Number of additional Dense layers
+                            type: INT, default=0
+            dense_neurons:  List of neuron numbers in each additional Dense layer
+                            type: List, default=[]
+        
+        Return:
+            model:          LSTM model
+                            type: Keras Sequential Model
+        '''
+    model = Sequential()
+    model.add(LSTM(input_shape=(1,input_dim,), units=units, return_sequences = True))
+    model.add(Dropout(dropout))
+    if lstm_layers>1 and len(neurons)==lstm_layers:
+        for i in range(lstm_layers):
+            model.add(LSTM(neurons[i]))
+            model.add(Dropout(dropout))
+    if dense_layers>0 and len(dense_neurons)==dense_layers:
+        model.add(Dense(dense_neurons[i]))
+        model.add(Dropout(dropout))
+    model.add(Dense(output_dim))
+    model.add(Activation("linear"))
+    model.compile(loss="mse", optimizer="adam")
+    model.summary()
+    
+    return model
 
-from matplotlib import pyplot
-import LSTM.prepare_data as pda
-import support.evaluation as se
+def fit_predict(model, train_X, train_y, test_X, batch_size=5000, epochs=20, validation_split=0.1):
+    '''
+        This is for fitting the model and making forecast.
+        
+        Args:
+            model:              the build LSTM model
+                                type: Keras Sequential Model
+            train_X:            the training X
+                                type: ndarray, shape: (series, train_step)
+            train_y:            the training y
+                                type: ndarray, shape: (series, pred_step)
+            test_X:             the testing X
+                                type: ndarray, shape: (series, train_step)
+            batch_size:         batch size for fitting the model and predicting
+                                type: INT, default: 5000
+            epochs:             number of epochs to train the model
+                                type: INT, default: 20
+            validation_split:   ration of training data being splited into validation set
+                                type: ndarray, shape: (series, train_step), default: 0.1
+                            
+        Return:
+            pred_norm:          the prediction being made
+                                type: ndarray, shape: (serise, pred_step)
+        '''
+    
+    model.fit(train_X, train_y, batch_size=batch_size, epochs=epochs, validation_split=validation_split)
+    pred_norm = model.predict(test_X, batch_size=batch_size)
 
-series_all = pd.read_csv('../data/train_1.csv')
-series_all = series_all.fillna(0)
+    return pred_norm
 
-series_all = series_all.iloc[:,1:]
+def main(train_path, test_path, pred_days=60):
+    '''
+        Main for __main__.py to call
+        
+        Args:
+            train_path:     path to training data
+                            type: STRING
+            test_path:      path to testing data
+                            type: STRING
+            pred_days:      number of days to predict
+                            type: INT, defalut: 60
+        '''
+    pages, dates, series1_all = io.load_data(train_path)
+    train_raw_values = dpre.clean_Data(series1_all)
+    train_norm_values = dpre.normalise_transform(train_raw_values)
 
-series2_all = pd.read_csv('../data/train_2.csv')
-series2_all = series2_all.fillna(0)
-series2_all = series2_all.iloc[:,1:]
+    pages, dates, series2_all = io.load_data(test_path)
+    test_raw_values = dpre.clean_Data(series2_all)
 
-train_raw_values = series_all
-test_raw_values = series2_all
-#y_raw_norm_inverse = test_raw_values.iloc[:, -60:]
+    train_X, train_y, test_X, test_y = dpre.split_data(train_norm_values,test_raw_values)
+    input_dim = test_X.shape[2]
+    output_dim = test_y.shape[2]
 
-train_norm_values = np.log1p(train_raw_values*0.5).astype('float32')
-test_norm_values = np.log1p(test_raw_values*0.5).astype('float32')
-#train_norm_values = train_raw_values
-#test_norm_values = test_raw_values
-#print("train_norm_values: ",train_norm_values.shape)
-#scalerX, train_norm_values = pda.scale(train_norm_values.values)
-#scalery, tmp = pda.scale(y_raw_norm_inverse.values)
+    model = build_LSTM(5,input_dim, output_dim)
+    pred_norm = fit_predict(model, train_X, train_y, test_X, batch_size=5000,epochs=2)
 
-#train_norm_values = pd.DataFrame(train_norm_values)
-
-#train_X_norm = train_norm_values.iloc[:, :490]
-train_X_norm = train_norm_values#.iloc[:, :488]
-train_y_norm = train_norm_values.iloc[:, -62:]
-
-#test_X_norm = train_norm_values.iloc[:, 60:550]
-test_X_norm = train_norm_values.iloc[:, -488:]
-#test_y_norm = test_norm_values.iloc[:, 550:610]
-test_y_norm = test_raw_values.iloc[:, 550:612]
-
-input_dim = test_X_norm.shape[1]
-output_dim = test_y_norm.shape[1]
-
-model_lstm2 = Sequential()
-model_lstm2.add(LSTM(input_shape=(1,input_dim,), units=50, return_sequences = True))
-model_lstm2.add(Dropout(0.5))
-model_lstm2.add(LSTM(100))
-model_lstm2.add(Dropout(0.5))
-#model_lstm2.add(Dense(50))
-#model_lstm2.add(Dropout(0.5))
-model_lstm2.add(Dense(output_dim))
-model_lstm2.add(Activation("linear"))
-model_lstm2.compile(loss="mse", optimizer="adam")
-model_lstm2.summary()
-
-lstm2_input = train_X_norm.values
-lstm2_input = lstm2_input.reshape(145063,1,488)
-
-batch_size = 5000
-model_lstm2.fit(lstm2_input, train_y_norm.values, batch_size=batch_size, epochs=20,validation_split=0.1)
-
-lstm2_test_input = test_X_norm.values
-lstm2_test_input = lstm2_test_input.reshape(145063,1,488)
-y_lstm2_pred_norm = model_lstm2.predict(lstm2_test_input, batch_size=batch_size)
-
-
-
-y_lstm2_pred_norm_inverse = np.expm1(y_lstm2_pred_norm)/0.5
-np.save('predict_62.npy',y_lstm2_pred_norm_inverse)
-#y_lstm2_pred_norm = pd.DataFrame(y_lstm2_pred_norm)
-#whole_norm = pd.concat([test_X_norm,y_lstm2_pred_norm],axis=1)
-#whole = scalery.inverse_transform(y_lstm2_pred_norm.values)
-#y_lstm2_pred_norm_inverse = whole[:,-60:]
-#y_lstm2_pred_norm_inverse = pd.DataFrame(whole)
-
-#print(y_lstm2_pred_norm_inverse.shape,y_raw_norm_inverse.shape)
-#print(y_lstm2_pred_norm_inverse)
-#print(se.smape(y_raw_norm_inverse, y_lstm2_pred_norm_inverse))
-print(se.smape(test_y_norm, y_lstm2_pred_norm_inverse))
-
-#tmp = pd.DataFrame(tmp)
-#tmp_inverse = scalery.inverse_transform(tmp)
-#tmp_inverse = pd.DataFrame(tmp_inverse)
-#print(tmp.head())
-#print("****************************")
-#print(y_lstm2_pred_norm.head())
-
-
-pyplot.figure(0)
-#pyplot.plot(range(60),y_lstm2_pred_norm_inverse.iloc[38], label = "predict")
-#pyplot.plot(range(60),y_raw_norm_inverse.iloc[38], label = "raw")
-pyplot.plot(range(62),y_lstm2_pred_norm_inverse[38], label = "predict")
-pyplot.plot(range(62),test_y_norm.iloc[38], label = "raw")
-pyplot.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)
-pyplot.show()
-
-
-
-
+    pred = dpre.normalise_reverse(pred_norm)
+    pred.save('lstm_prediction.npy')

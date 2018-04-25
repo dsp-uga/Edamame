@@ -27,7 +27,8 @@ def inverse_difference(history, yhat, interval=1):
 # scale train and test data to [-1, 1]
 def scale(train):#, test):
     # fit scaler
-    scaler = MinMaxScaler(feature_range=(-1, 1))
+#    scaler = MinMaxScaler(feature_range=(-1, 1))
+    scaler = MinMaxScaler()
     scaler = scaler.fit(train)
     # transform train
     train = train.reshape(train.shape[0], train.shape[1])
