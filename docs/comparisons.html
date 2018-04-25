@@ -130,7 +130,7 @@
 						<i class="icon-gears"></i>
 						<h2><b>ARIMA</b></h2>
 						<p class="small-lh"> &#9679; Relatively High SMAPE scores <br>
-								Ends up with 38.432 mean SMAPE score.</p>
+								Ends up with 39.6649 mean SMAPE score.</p>
 						<p class="small-lh"> &#9679; Works well for short-term <br>
 								For short-run forecasts with high frequency data.</p>
 					</div>
@@ -144,13 +144,17 @@
 					<div class="services-grid">
 						<i class="icon-video"></i>
 						<h2><b>LSTM</b></h2>
-						<p class="small-lh"> &#9679; <b>SUPER FAST</b> <br>
-								Train all the pages (145k) at once and take just 20 mins for 20 epochs.</p>
-						<p class="small-lh"> &#9679; Keep updating<br>
-								I have no idea why i say that please correct this.</p>
+						<p class="small-lh"> &#9679; <b>A LOT FASTER</b> <br>
+								One model for all the pages (145k) at once and take just 20 mins for 20 epochs.</p>
+						<p class="small-lh"> &#9679; Not so sensitive to non-stationary data.</p>
 					</div>
 				</div>
 			</div>
+			<div class="row">
+				<div class="text-center">
+				<img class="img" src="images/comparisons/arima_best.png" height="400"/><br><br>
+				<img class="img" src="images/comparisons/lstm_3best.png" height="400"/>
+			</div></div><br><br>
 			<a href="#step3" class="btn btn-primary page-scroll"><b>Step 3!</b></a>
 			<br><br><br><hr>
 		</div>
@@ -182,10 +186,8 @@
 					<div class="services-grid">
 						<i class="icon-video"></i>
 						<h2><b>LSTM</b></h2>
-						<p class="small-lh"> &#9679; Relatively low score? <br>
-								I have no idea of LSTM so i cant fill for you</p>
-						<p class="small-lh"> &#9679; Forecast in same shape<br>
-								(Or may be sensitive to preprocessing?) My neck hurts for many days damn</p>
+						<p class="small-lh"> &#9679; Relatively lower score due to one model for all?</p>
+						<p class="small-lh"> &#9679; Start to forget what happened very long ago (limit is 400 days)</p>
 					</div>
 				</div>
 			</div>
@@ -255,22 +257,24 @@
 				</div>
 			</div> -->
 
-	<footer>
-		<div id="footer" class="fh5co-border-line">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-8 col-md-offset-2 text-center">
-						<p>Copyright 2016 Free Html5 <a href="#">Neos</a>. All Rights Reserved. <br>Made with <i class="icon-heart3 love"></i> by <a href="http://freehtml5.co/" target="_blank">Freehtml5.co</a> / Demo Images: <a href="https://www.pexels.com/" target="_blank">Pexels</a> &amp; <a href="http://plmd.me/" target="_blank">PLMD</a> </p>
-						<p class="fh5co-social-icons">
-							<a href="#"><i class="icon-twitter-with-circle"></i></a>
-							<a href="#"><i class="icon-facebook-with-circle"></i></a>
-							<a href="#"><i class="icon-instagram-with-circle"></i></a>
-						</p>
+			<footer>
+				<div id="footer" class="fh5co-border-line">
+					<div class="container">
+						<div class="row">
+							<div class="col-md-8 col-md-offset-2 text-center">
+								<p>Copyright 2016 <a href="http://freehtml5.co/">Free Html5 Neos</a>. All Rights Reserved. <br>
+									 Modified by <a href="https://github.com/WeiwenXu21">Weiwen</a> & <a href="https://github.com/melanieihuei">I-Huei</a> 2018.
+								</p>
+								<p class="fh5co-social-icons">
+									<a href="https://github.com/dsp-uga/Edamame"><i class="icon-github-with-circle"></i></a>
+									<a href="https://dsp-uga.github.io/sp18/"><i class="icon-500px-with-circle"></i></a>
+									<!-- <a href="#"><i class="icon-instagram-with-circle"></i></a> -->
+								</p>
+							</div>
+						</div>
 					</div>
 				</div>
-			</div>
-		</div>
-	</footer>
+			</footer>
 
 	<!-- jQuery -->
 	<script src="js/jquery.min.js"></script>
