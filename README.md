@@ -26,6 +26,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 - [Python 3.6](https://www.python.org/downloads/release/python-360/)
 - [Anaconda](https://www.anaconda.com/)
+- [Keras](https://keras.io/)
 
 ### Environment Setting
 
@@ -67,7 +68,7 @@ SMAPE is an alternative method to MAPE when there are zero or near-zero demand f
 
 train_1 is the training set 1 of web visits from 07/31/15 to 12/31/16, and train_2 is the training set 2 of web visits from 07/31/15 to 09/01/16.
 
-#### ARIMA
+#### ARIMA
 
 | Module    | Training set                   | # of pages | Mean SMAPE |
 |-----------|--------------------------------|------------|------------|
