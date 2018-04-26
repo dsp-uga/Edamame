@@ -77,22 +77,19 @@ def split_data(train, test, pred_days=60):
                         type: ndarray, shape: (series, pred_days)
         '''
     series_numb, total_length = train.shape
+    print(series_numb, total_length)
 
     train_X = train[:, :(total_length - pred_days)]
-    print(train_X.shape)
     train_y = train[:, -(pred_days):]
-    print(train_y.shape)
     
     test_X = train[:, pred_days:total_length]
-    print(test_X.shape)
     test_y = test[:, total_length:(total_length+pred_days)]
-    print(test_y.shape)
+    
+    print(test_X.shape, test_y.shape)
     
     series, train_step = train_X.shape
     series, pred_step = train_y.shape
-    print(train_step,pred_step)
-    
-    
+
     train_X = train_X.reshape(series,1,train_step)
     train_y = train_y.reshape(series,1,pred_step)
     test_X = test_X.reshape(series,1,train_step)

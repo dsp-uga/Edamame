@@ -22,13 +22,21 @@ def main():
     op.set_defaults(func = info)
 
     # Required args
-    parser.add_argument("-d1", "--train_path", default = 'data/train_1.csv',
+    parser.add_argument("-d1", "--train_path", default = '../data/train_1.csv',
                         help = "Path to the training series")
-    parser.add_argument("-d2", "--test_path", default = 'data/train_2.csv',
+    parser.add_argument("-d2", "--test_path", default = '../data/train_2.csv',
                         help = "Path to the testing series")
     # Optional args
+    parser.add_argument("-s", "--savepath", type = str, default = 'lstm_prediction',
+                        help = "Path to save LSTM prediction, [Default: lstm_prediction]")
     parser.add_argument("-n", "--pred_days", type = int, default = 60,
                         help = "Number of days to forecasts, [Default: 60]")
+    parser.add_argument("-b", "--batch_size", type = int, default = 5000,
+                        help = "Batch size, [Default: 5000]")
+    parser.add_argument("-e", "--epochs", type = int, default = 2,
+                        help = "Number of epochs, [Default: 20]")
+    parser.add_argument("-ne", "--neuron", type = int, default = 5,
+                        help = "Number of epochs, [Default: 5]")
     parser.set_defaults(func = lstm.main)
                                      
     args = parser.parse_args()

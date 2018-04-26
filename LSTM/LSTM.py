@@ -1,3 +1,5 @@
+import numpy as np
+
 import support.data_preprocessing as dpre
 import support.io_support as io
 
@@ -77,7 +79,7 @@ def fit_predict(model, train_X, train_y, test_X, batch_size=5000, epochs=20, val
 
     return pred_norm
 
-def main(train_path, test_path, pred_days=60):
+def main(train_path, test_path, savepath, pred_days=60, batch_size=5000, epochs=2, neuron=5):
     '''
         Main for __main__.py to call
         
@@ -89,6 +91,7 @@ def main(train_path, test_path, pred_days=60):
             pred_days:      number of days to predict
                             type: INT, defalut: 60
         '''
+    
     pages, dates, series1_all = io.load_data(train_path)
     train_raw_values = dpre.clean_Data(series1_all)
     train_norm_values = dpre.normalise_transform(train_raw_values)
@@ -100,8 +103,8 @@ def main(train_path, test_path, pred_days=60):
     input_dim = test_X.shape[2]
     output_dim = test_y.shape[2]
 
-    model = build_LSTM(5,input_dim, output_dim)
-    pred_norm = fit_predict(model, train_X, train_y, test_X, batch_size=5000,epochs=2)
+    model = build_LSTM(neuron,input_dim, output_dim)
+    pred_norm = fit_predict(model, train_X, train_y, test_X, batch_size=batch_size, epochs=epochs)
 
     pred = dpre.normalise_reverse(pred_norm)
-    pred.save('lstm_prediction.npy')
+    np.save(savepath+'.npy', pred)
