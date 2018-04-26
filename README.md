@@ -75,6 +75,13 @@ train_1 is the training set 1 of web visits from 07/31/15 to 12/31/16, and train
 |ARIMA      | train_1, high sd, stationary   | 2,075      | 39.4344    |
 
 #### LSTM
+| Preprocessing   |  Model structure     | Batch Size | Epochs |Mean SMAPE|
+|-----------------|----------------------|------------|--------|----------|
+| fill nan with 0 | LSTM(50) + Dense(60) | 3000       | 30     | 61.9849  |
+| fill nan with 0 | LSTM(50) + Dense(60) | 5000       | 30     | 61.2177  |
+| fill nan with 0 | LSTM(50) + Dense(60) | 10000      | 50     | 55.4024  |
+| fill nan with 0 | LSTM(50) + Dense(60) | 10000      | 70     | 53.8052  |
+| fill nan with 0 | LSTM(50) + Dense(60) | 10000      | 100    | 59.2045  |
 
 
 ## Discussion
@@ -89,13 +96,31 @@ train_1 is the training set 1 of web visits from 07/31/15 to 12/31/16, and train
 
 - A lot faster than ARIMA (only 20 mins for 20 epochs) and not sensitive to non-stationary data
 - Starts to forget what happened very long ago (limit is 400 days)
+- Below is an example of SMAPE value distribution for LSTM model. We can see there are quite a few outliners with SMAPE value of 200.
+<p align="center">
+<img src="docs/images/lstm/SMAPE Distribution 70 epochs 10000.jpg" height="400"/><br><br>
+</p>
+- Then for those with SMAPE value of 200, if we plot their raw data and predicted data, we can see the raw data are all 0. After inspecting the original data, we found quite a few pages have 0 visit throughout the entire time series.
+<p align="center">
+<img src="docs/images/lstm/LSTM_worst.jpg" height="400"/><br><br>
+</p>
 
+
+#### Performance comparisons between two models
 <br>
 <p align="center">
 <img src="docs/images/comparisons/arima_best.png" height="400"/><br><br>
 <img src="docs/images/comparisons/lstm_3best.png" height="400"/>
 </p>
 
+## Further Improvement
+
+#### LSTM
+- A good way of avoiding those [200 SMAPE values ](https://github.com/dsp-uga/Edamame#lstm-1) could be to remove those pages with 0 visit throughout the entire time series for training. However, There are 752 such series in train_1. if we extend the time to the end of our final prediction date, it will be 38 pages being 0 for the whole time. This means there are 714 pages that we have to make prediction out of nothing...
+
+- Also, it might be helpful to train different models for different page categories. For example, different models for pages with different languages.
+
+- A [solution](https://github.com/Arturus/kaggle-web-traffic/blob/master/how_it_works.md#working-with-long-timeseries) for the memory issue of LSTM proposed by 1st place winner of this kaggle competition is to use information from certain time period ago as additional features to feed into LSTM model.
 
 ## Authors
 (Order alphabetically)
@@ -107,4 +132,4 @@ See the [CONTRIBUTORS](CONTRIBUTORS.md) file for details.
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE) file for details
