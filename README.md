@@ -74,6 +74,10 @@ train_1 is the training set 1 of web visits from 07/31/15 to 12/31/16, and train
 |ARIMA      | train_1, high sd, stationary   | 1,867      | 39.6649    |
 |ARIMA      | train_1, high sd, stationary   | 2,075      | 39.4344    |
 
+<p align="center">
+<img src="docs/images/arima/smape_dist.png" width="600"/>
+</p>
+
 #### LSTM
 
 
