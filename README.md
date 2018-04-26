@@ -67,13 +67,15 @@ SMAPE is an alternative method to MAPE when there are zero or near-zero demand f
 
 train_1 is the training set 1 of web visits from 07/31/15 to 12/31/16, and train_2 is the training set 2 of web visits from 07/31/15 to 09/01/16.
 
-| Module    | Training set | # of pages | Mean SMAPE |
-|-----------|--------------|------------|------------|
-|ARIMA      | train_1      | 1,867      | 39.6649    |
-|ARIMA      | train_1      | 2,075      | 39.4344    |
-|LSTM       | train_1      | 145,000    |  |
-|LSTM       | train_1      | 145,000    |  |
-|LSTM       | train_2      | 145,000    |  |
+#### ARIMA
+
+| Module    | Training set                   | # of pages | Mean SMAPE |
+|-----------|--------------------------------|------------|------------|
+|ARIMA      | train_1, high sd, stationary   | 1,867      | 39.6649    |
+|ARIMA      | train_1, high sd, stationary   | 2,075      | 39.4344    |
+
+#### LSTM
+
 
 ## Discussion
 
