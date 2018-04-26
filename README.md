@@ -101,7 +101,9 @@ train_1 is the training set 1 of web visits from 07/31/15 to 12/31/16, and train
 <p align="center">
 <img src="docs/images/lstm/SMAPE Distribution 70 epochs 10000.jpg" height="400"/><br><br>
 </p>
-- Then for those with SMAPE value of 200, if we plot their raw data and predicted data, we can see the raw data are all 0. After inspecting the original data, we found quite a few pages have 0 visit throughout the entire time series.
+<ul>
+<li> Then for those with SMAPE value of 200, if we plot their raw data and predicted data, we can see the raw data are all 0. After inspecting the original data, we found quite a few pages have 0 visit throughout the entire time series.
+</ul>
 <p align="center">
 <img src="docs/images/lstm/LSTM_worst.jpg" height="400"/><br><br>
 </p>
