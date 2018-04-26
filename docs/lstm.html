@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+	<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Edamame.</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Free HTML5 Template by FREEHTML5.CO" />
+	<meta name="keywords" content="free html5, free template, free bootstrap, html5, css3, mobile first, responsive" />
+	<meta name="author" content="FREEHTML5.CO" />
+
+  <!--
+	//////////////////////////////////////////////////////
+
+	FREE HTML5 TEMPLATE
+	DESIGNED & DEVELOPED by FREEHTML5.CO
+
+	Website: 		http://freehtml5.co/
+	Email: 			info@freehtml5.co
+	Twitter: 		http://twitter.com/fh5co
+	Facebook: 		https://www.facebook.com/fh5co
+
+	//////////////////////////////////////////////////////
+	 -->
+
+  	<!-- Facebook and Twitter integration -->
+	<meta property="og:title" content=""/>
+	<meta property="og:image" content=""/>
+	<meta property="og:url" content=""/>
+	<meta property="og:site_name" content=""/>
+	<meta property="og:description" content=""/>
+	<meta name="twitter:title" content="" />
+	<meta name="twitter:image" content="" />
+	<meta name="twitter:url" content="" />
+	<meta name="twitter:card" content="" />
+
+	<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+	<link rel="shortcut icon" href="images/car.ico">
+
+
+   <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,700' rel='stylesheet' type='text/css'>
+
+	<!-- Animate.css -->
+	<link rel="stylesheet" href="css/animate.css">
+	<!-- Icomoon Icon Fonts-->
+	<link rel="stylesheet" href="css/icomoon.css">
+	<!-- Bootstrap  -->
+	<link rel="stylesheet" href="css/bootstrap.css">
+
+	<link rel="stylesheet" href="css/style.css">
+
+
+	<!-- Modernizr JS -->
+	<script src="js/modernizr-2.6.2.min.js"></script>
+	<!-- FOR IE9 below -->
+	<!--[if lt IE 9]>
+	<script src="js/respond.min.js"></script>
+	<![endif]-->
+
+	</head>
+	<body>
+	<header>
+		<div class="container text-center">
+			<div class="fh5co-navbar-brand">
+				<a class="fh5co-logo" href="index.html">
+					<img class="img" src="images/edamamesan.png" height="60" width="60"/>
+					Edamame</a>
+			</div>
+			<nav id="fh5co-main-nav" role="navigation">
+				<ul>
+					<li><a href="index.html">ABOUT</a></li>
+					<li><a href="arima.html">ARIMA</a></li>
+					<li><a href="lstm.html" class="active">LSTM</a></li>
+					<li><a href="comparisons.html">COMPARISONS</a></li>
+					<li><a href="contact.html">CONTACTS</a></li>
+				</ul>
+			</nav>
+		</div>
+	</header>
+
+	<div class="fh5co-parallax" style="background-image: url(images/traffic4.png);" data-stellar-background-ratio="0.5">
+		<div class="overlay"></div>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-8 col-md-offset-2 col-sm-12 col-sm-offset-0 col-xs-12 col-xs-offset-0 text-center fh5co-table">
+					<div class="fh5co-intro fh5co-table-cell">
+						<h1 class="text-center"><font face = "sans-serif">LSTM</h1>
+							<p><font size=5>Long Short-Term Memory Model.</font></p>
+							<br>
+							<a href="#step1" class="btn btn-default page-scroll"><b>Start!</b></a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div><!-- end: fh5co-parallax -->
+
+    <!-- Step 1: Introduction of ARIMA -->
+    <div id="step1">
+        <div class="container">
+            <div class="row">
+                <div class="heading-section text-center">
+                    <h1>Why LSTM?</h1>
+                    <hr><br>
+                    <h2>Situation</h2>
+                </div>
+                <p class="big-lh left-s">
+                        Although <font color="#F03861"><b><a href="arima.html">ARIMA</a></b></font>
+                        is quite good at making predictions for time series data. It's pretty time consuming if you
+                        want to train multiply series. For this project sepcificly, we need to make 60 days' predictions for 145063 series. Imagine how long that's gonna take. Training and predicting 60 days for 1 series takes about 1 min. Then for 145063 series, it will take 145063/60/24 = <font color="#F03861"><b><a href="https://www.the100dayproject.org/">100 days!!</a></b></font> Time to seek for solutions from deep neural nets...
+                </p>
+                <br>
+                <div class="heading-section text-center">
+                    <h2>Concept</h2>
+                </div>
+                <p class="big-lh left-s">
+                I'm sure we know the looped structure of RNN. LSTM has similiar structure and if you unroll the loop we will get the structure like below with several gates within the cell. The left sigmoid layer acts as the forget gate, it decides how much we want to forget in previous timestep. The middle two (a sigmoid and a tanh layer) are for deciding what to update. These two gates combined decided the information being updated and passed to next step. Then, the right two (a sigmoid and a tanh layer) decides the output for this step. More details about structure of LSTM please check <font color="#F03861"><b><a href="http://colah.github.io/posts/2015-08-Understanding-LSTMs/">colah's blog</a></b></font>!
+                </p>
+                <div class="text-center">
+                    <img class="img" style='height: 100%; width: 60%; object-fit: contain' src="images/lstm/LSTM_cells.png">
+                </div><br/>
+                <p class="big-lh left-s">
+                RNN/LSTM are good at extracting patterns in input feature space. And given LSTM’s gated architecture, it has this ability to manipulate its memory state. LSTM is also very flexible in that it has several combinations of sequence to sequence models—<font color="#525151" style="font-family:courier;"><b>many to one</b></font>: predict at current timestep given all the previous timesteps; <font color="#525151" style="font-family:courier;"><b>many to many</b></font>: predict multiple future time steps at once given all the previous timesteps; and several other variations. The model I'm using here is <font color="#525151" style="font-family:courier;"><b>many to many model</b></font>.
+                </p>
+                <div class="text-center">
+                    <img class="img" style='height: 100%; width: 80%; object-fit: contain' src="images/lstm/LSTM_models.jpeg">
+                </div><br><br>
+                <div class="text-center">
+                <a href="#step2" class="btn btn-primary page-scroll"><b>HOW?</b></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br><br>
+    <div id="step2">
+        <div class="container">
+            <div class="row">
+                <div class="heading-section text-center">
+                    <h1>Performance of LSTM</h1>
+                    <hr>
+                </div>
+                <p class="big-lh left-s">
+                Well... not as good as ARIMA sadly 😢. Luckily, I was able to run some experiments.
+                </p>
+                <div class="text-center">
+                    <img class="img" style='height: 100%; width: 80%; object-fit: contain' src="images/lstm/SMAPE Distribution 30 epochs.jpg"><img class="img" style='height: 100%; width: 80%; object-fit: contain' src="images/lstm/SMAPE Distribution 30 epochs 5000.jpg">
+                </div><br>
+                <p class="big-lh left-s">
+                Only increasing batch does not seem to be helping in any way... If we increase both batch size and number of epochs...
+                </p>
+                <div class="text-center">
+                    <img class="img" style='height: 100%; width: 80%; object-fit: contain' src="images/lstm/SMAPE Distribution 50 epochs 10000.jpg"><img class="img" style='height: 100%; width: 80%; object-fit: contain' src="images/lstm/SMAPE Distribution 70 epochs 10000.jpg">
+                </div>
+                <p class="big-lh left-s">
+                Ok let's what good and bad prediction look like:
+                </p>
+                <div class="text-center">
+                    <img class="img" style='height: 100%; width: 50%; object-fit: contain' src="images/lstm/LSTM_best.jpg"><img class="img" style='height: 100%; width: 50%; object-fit: contain' src="images/lstm/LSTM_worst.jpg">
+                </div>
+            </div>
+        </div><br>
+				<div class="text-center">
+				<a href="comparisons.html" class="btn btn-primary page-scroll"><b>Compare them!</b></a>
+				</div>
+    </div>
+    <br>
+
+	<footer>
+		<div id="footer" class="fh5co-border-line">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-8 col-md-offset-2 text-center">
+                        <p>Copyright 2016 <a href="http://freehtml5.co/">Free Html5 Neos</a>. All Rights Reserved. <br>
+                        Modified by <a href="https://github.com/WeiwenXu21">Weiwen</a> & <a href="https://github.com/melanieihuei">I-Huei</a> 2018.
+                        </p>
+						<p class="fh5co-social-icons">
+                        <a href="https://github.com/dsp-uga/Edamame"><i class="icon-github-with-circle"></i></a>
+                        <a href="https://dsp-uga.github.io/sp18/"><i class="icon-500px-with-circle"></i></a>
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</footer>
+
+	<!-- jQuery -->
+	<script src="js/jquery.min.js"></script>
+	<!-- jQuery Easing -->
+	<script src="js/jquery.easing.1.3.js"></script>
+	<!-- Bootstrap -->
+	<script src="js/bootstrap.min.js"></script>
+	<!-- Waypoints -->
+	<script src="js/jquery.waypoints.min.js"></script>
+	<!-- Owl carousel -->
+	<script src="js/owl.carousel.min.js"></script>
+	<!-- Stellar -->
+	<script src="js/jquery.stellar.min.js"></script>
+
+	<!-- Main JS (Do not remove) -->
+	<script src="js/main.js"></script>
+
+	</body>
+</html>
