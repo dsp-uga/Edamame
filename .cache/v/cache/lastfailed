@@ -1,5 +1,0 @@
-{
-  "tests/preprocessing_test.py::test_clean_data": true,
-  "tests/preprocessing_test.py::test_normalise": true,
-  "tests/preprocessing_test.py::test_split": true
-}
