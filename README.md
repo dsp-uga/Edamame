@@ -69,10 +69,11 @@ train_1 is the training set 1 of web visits from 07/31/15 to 12/31/16, and train
 
 #### ARIMA
 
-| Module    | Training set                   | # of pages | Mean SMAPE |
-|-----------|--------------------------------|------------|------------|
-|ARIMA      | train_1, high sd, stationary   | 1,867      | 39.6649    |
-|ARIMA      | train_1, high sd, stationary   | 2,075      | 39.4344    |
+| Preprocessing   | Training set                   | # of pages | Mean SMAPE |
+|-----------------|--------------------------------|------------|------------|
+| fill nan with 0 | train_1, high sd, stationary   | 1,867      | 39.6649    |
+| fill nan with 0 | train_1, high sd, stationary   | 2,075      | 39.4344    |
+| fill nan with 0 | train_1, high sd, stationary   | 2,340      | 38.965     |
 
 #### LSTM
 | Preprocessing   |  Model structure     | Batch Size | Epochs |Mean SMAPE|
@@ -91,6 +92,12 @@ train_1 is the training set 1 of web visits from 07/31/15 to 12/31/16, and train
 - Has relatively high SMAPE score than LSTM and works well for short-run forecasts with high frequency data
 - High coast and super time consuming (100 days for 145k pages on training set 1)
 - Strict assumptions check before fitting models
+    - stationarity check for ARMA model
+    - autocorrelation, seasonal components, and trend components for ARIMA model
+- Nice forecast with SMAPE score 7.7685 for ARIMA:
+<p align = "center">
+  <img src="docs/images/arima/forecast.png height="400/>
+</p><br><br>
 
 #### LSTM
 
@@ -107,7 +114,6 @@ train_1 is the training set 1 of web visits from 07/31/15 to 12/31/16, and train
 <img src="docs/images/lstm/LSTM_worst.jpg" height="400"/><br><br>
 </p>
 
-
 #### Performance comparisons between two models
 <br>
 <p align="center">
@@ -116,6 +122,9 @@ train_1 is the training set 1 of web visits from 07/31/15 to 12/31/16, and train
 </p>
 
 ## Further Improvement
+
+#### ARIMA
+- Time consuming is not solvable if we are still fitting each page one by one. Detacting high autocorrelation values by specific threshold and assigning the parameters of seasonal and trend components might reduce the time on augmented Dickey-Fuller test which is not as robust as expected.
 
 #### LSTM
 - A good way of avoiding those [200 SMAPE values ](https://github.com/dsp-uga/Edamame#lstm-1) could be to remove those pages with 0 visit throughout the entire time series for training. However, There are 752 such series in train_1. if we extend the time to the end of our final prediction date, it will be 38 pages being 0 for the whole time. This means there are 714 pages that we have to make prediction out of nothing...
