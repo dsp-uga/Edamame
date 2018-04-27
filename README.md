@@ -54,8 +54,8 @@ python -m [algorithm] [args-for-the-algorithm]
 
 ##### Algorithms
 
-    - `ARIMA`: Running Autoregressive Integrated Moving Average model
-    - `LSTM`: Running Long Short-term Memory model
+   - `ARIMA`: Running Autoregressive Integrated Moving Average model
+   - `LSTM`: Running Long Short-term Memory model
 
 Each folders includes one module and you can run it through the command above. You are also able to import module `ARIMA` and `LSTM` in python scripts as usual package. Each module provides their own arguments, use `help()` to know more details when running the algorithms.  
 
@@ -78,7 +78,7 @@ train_1 is the training set 1 of web visits from 07/31/15 to 12/31/16, and train
 |-----------------|--------------------------------|------------|------------|
 | fill nan with 0 | train_1, high sd, stationary   | 1,867      | 39.6649    |
 | fill nan with 0 | train_1, high sd, stationary   | 2,075      | 39.4344    |
-| fill nan with 0 | train_1, high sd, stationary   | 2,340      | 38.965     |
+| fill nan with 0 | train_1, high sd, stationary   | 2,358      | 38.8875    |
 
 #### LSTM
 | Preprocessing   |  Model structure     | Batch Size | Epochs |Mean SMAPE|
