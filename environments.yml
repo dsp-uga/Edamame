@@ -1,0 +1,23 @@
+channels:
+  - defaults
+  - annaconda
+
+dependencies:
+  - keras
+  - matplotlib
+  - numpy
+  - pandas
+  - pytest
+  - python
+  - scikit-learn
+  - tensorflow
+  - scipy
+  - statsmodels
+  - pip:
+    - json
+    - pprint
+    - datetime
+    - warnings
+    - operator
+    - math
+    - itertools
