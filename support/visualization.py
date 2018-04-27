@@ -1,7 +1,7 @@
 import numpy as np
 import json
 import matplotlib.pyplot as plt
-from ..ARIMA.itsmpy import ITSM
+from ARIMA.itsmpy import ITSM
 from io_support import load_data
 from evaluation import smape
 
