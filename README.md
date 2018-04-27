@@ -35,9 +35,15 @@ These instructions will get you a copy of the project up and running on your loc
   $ cd Edamame
   ```
 
-  2. **Setup the environment**
+  2. **Set up environment**
   ```
-  $ python setup.py
+  $ conda env create -f environments.yml -n edamame_env python=3.6
+  $ source activate edamame_env
+  ```
+
+  3. **Make this repo as packages**
+  ```
+  $ python setup.py install
   ```
 
 ## Running the tests
@@ -48,11 +54,10 @@ python -m [algorithm] [args-for-the-algorithm]
 
 ##### Algorithms
 
-    - `ARIMA`: Running Autoregressive Integrated Moving Average model
-    - `LSTM`: Running Long Short-term Memory model
+   - `ARIMA`: Running Autoregressive Integrated Moving Average model
+   - `LSTM`: Running Long Short-term Memory model
 
-Each folders includes one module and you can run it through the command above. Each module provides their own arguments, use `help()` to know more details when running the algorithms.
-
+Each folders includes one module and you can run it through the command above. You are also able to import module `ARIMA` and `LSTM` in python scripts as usual package. Each module provides their own arguments, use `help()` to know more details when running the algorithms.  
 
 ## Evaluation
 
@@ -67,18 +72,26 @@ SMAPE is an alternative method to MAPE when there are zero or near-zero demand f
 
 train_1 is the training set 1 of web visits from 07/31/15 to 12/31/16, and train_2 is the training set 2 of web visits from 07/31/15 to 09/01/16.
 
-#### ARIMA
+#### ARIMA
 
-| Module    | Training set                   | # of pages | Mean SMAPE |
-|-----------|--------------------------------|------------|------------|
-|ARIMA      | train_1, high sd, stationary   | 1,867      | 39.6649    |
-|ARIMA      | train_1, high sd, stationary   | 2,075      | 39.4344    |
+| Preprocessing   | Training set                   | # of pages | Mean SMAPE |
+|-----------------|--------------------------------|------------|------------|
+| fill nan with 0 | train_1, high sd, stationary   | 1,867      | 39.6649    |
+| fill nan with 0 | train_1, high sd, stationary   | 2,075      | 39.4344    |
+| fill nan with 0 | train_1, high sd, stationary   | 2,358      | 38.8875    |
 
 <p align="center">
 <img src="docs/images/arima/smape_dist.png" width="600"/>
 </p>
 
 #### LSTM
+| Preprocessing   |  Model structure     | Batch Size | Epochs |Mean SMAPE|
+|-----------------|----------------------|------------|--------|----------|
+| fill nan with 0 | LSTM(50) + Dense(60) | 3000       | 30     | 61.9849  |
+| fill nan with 0 | LSTM(50) + Dense(60) | 5000       | 30     | 61.2177  |
+| fill nan with 0 | LSTM(50) + Dense(60) | 10000      | 50     | 55.4024  |
+| fill nan with 0 | LSTM(50) + Dense(60) | 10000      | 70     | 53.8052  |
+| fill nan with 0 | LSTM(50) + Dense(60) | 10000      | 100    | 59.2045  |
 
 
 ## Discussion
@@ -88,18 +101,49 @@ train_1 is the training set 1 of web visits from 07/31/15 to 12/31/16, and train
 - Has relatively high SMAPE score than LSTM and works well for short-run forecasts with high frequency data
 - High coast and super time consuming (100 days for 145k pages on training set 1)
 - Strict assumptions check before fitting models
+    - stationarity check for ARMA model
+    - autocorrelation, seasonal components, and trend components for ARIMA model
+- Nice forecast with SMAPE score 7.7685 for ARIMA:
+<p align = "center">
+  <img src="docs/images/arima/forecast.png" height="400"/>
+</p><br><br>
 
+<p>
+  
 #### LSTM
 
 - A lot faster than ARIMA (only 20 mins for 20 epochs) and not sensitive to non-stationary data
 - Starts to forget what happened very long ago (limit is 400 days)
+- Below is an example of SMAPE value distribution for LSTM model. We can see there are quite a few outliners with SMAPE value of 200.
+</p>
+<p align="center">
+<img src="docs/images/lstm/SMAPE Distribution 70 epochs 10000.jpg" height="400"/><br><br>
+</p>
+<ul>
+<li> Then for those with SMAPE value of 200, if we plot their raw data and predicted data, we can see the raw data are all 0. After inspecting the original data, we found quite a few pages have 0 visit throughout the entire time series.</li>
+</ul>
+<p align="center">
+<img src="docs/images/lstm/LSTM_worst.jpg" height="400"/><br><br>
+</p>
 
+#### Performance comparisons between two models
 <br>
 <p align="center">
 <img src="docs/images/comparisons/arima_best.png" height="400"/><br><br>
 <img src="docs/images/comparisons/lstm_3best.png" height="400"/>
 </p>
 
+## Further Improvement
+
+#### ARIMA
+- Time consuming is not solvable if we are still fitting each page one by one. Detacting high autocorrelation values by specific threshold and assigning the parameters of seasonal and trend components might reduce the time on augmented Dickey-Fuller test which is not as robust as expected.
+
+#### LSTM
+- A good way of avoiding those [200 SMAPE values ](https://github.com/dsp-uga/Edamame#lstm-1) could be to remove those pages with 0 visit throughout the entire time series for training. However, There are 752 such series in train_1. if we extend the time to the end of our final prediction date, it will be 38 pages being 0 for the whole time. This means there are 714 pages that we have to make prediction out of nothing...
+
+- Also, it might be helpful to train different models for different page categories. For example, different models for pages with different languages.
+
+- A [solution](https://github.com/Arturus/kaggle-web-traffic/blob/master/how_it_works.md#working-with-long-timeseries) for the memory issue of LSTM proposed by 1st place winner of this kaggle competition is to use information from certain time period ago as additional features to feed into LSTM model.
 
 ## Authors
 (Order alphabetically)
@@ -111,4 +155,4 @@ See the [CONTRIBUTORS](CONTRIBUTORS.md) file for details.
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE) file for details
