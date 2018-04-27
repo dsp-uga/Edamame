@@ -7,8 +7,8 @@ import operator
 import warnings
 import pprint
 from datetime import datetime
-from ..support.io_support import load_data
-from ..support.evaluation import smape, evaluate_smape
+import support.io_support import load_data
+from support.evaluation import smape, evaluate_smape
 from .itsmpy import ITSM
 
 def fit_arima_model(series, M):

@@ -1,3 +1,3 @@
 #!/usr/bin/env python3
 from setuptools import setup
-setup(packages=['ARIMA','LSTM'])
+setup(packages=['LSTM','ARIMA'])
