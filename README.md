@@ -35,9 +35,15 @@ These instructions will get you a copy of the project up and running on your loc
   $ cd Edamame
   ```
 
-  2. **Setup the environment**
+  2. **Set up environment**
   ```
-  $ python setup.py
+  $ conda env create -f environments.yml -n edamame_env python=3.6
+  $ source activate edamame_env
+  ```
+
+  3. **Make this repo as packages**
+  ```
+  $ python setup.py install
   ```
 
 ## Running the tests
@@ -51,8 +57,7 @@ python -m [algorithm] [args-for-the-algorithm]
     - `ARIMA`: Running Autoregressive Integrated Moving Average model
     - `LSTM`: Running Long Short-term Memory model
 
-Each folders includes one module and you can run it through the command above. Each module provides their own arguments, use `help()` to know more details when running the algorithms.
-
+Each folders includes one module and you can run it through the command above. You are also able to import module `ARIMA` and `LSTM` in python scripts as usual package. Each module provides their own arguments, use `help()` to know more details when running the algorithms.  
 
 ## Evaluation
 
@@ -96,8 +101,9 @@ train_1 is the training set 1 of web visits from 07/31/15 to 12/31/16, and train
     - autocorrelation, seasonal components, and trend components for ARIMA model
 - Nice forecast with SMAPE score 7.7685 for ARIMA:
 <p align = "center">
-  <img src="docs/images/arima/forecast.png height="400/>
+  <img src="docs/images/arima/forecast.png" height="400/>
 </p><br><br>
+
 
 #### LSTM
 
