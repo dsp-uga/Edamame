@@ -7,7 +7,7 @@ import operator
 import warnings
 import pprint
 from datetime import datetime
-import support.io_support import load_data
+from support.io_support import load_data
 from support.evaluation import smape, evaluate_smape
 from .itsmpy import ITSM
 
